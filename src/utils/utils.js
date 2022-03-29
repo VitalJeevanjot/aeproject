@@ -45,4 +45,5 @@ module.exports = {
   config,
   getNetwork,
   awaitNodeAvailable,
+  pause,
 };

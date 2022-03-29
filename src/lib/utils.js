@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const http = require('http');
 const { Universal, MemoryAccount, Node } = require('@aeternity/aepp-sdk');
+const { pause } = require('../utils/utils');
 
 const networks = require('./networks.json');
 const wallets = require('./wallets.json');
@@ -96,6 +97,8 @@ const getSdk = async () => {
 const awaitKeyBlocks = async (aeSdk, n = 1) => {
   const height = await aeSdk.height();
   await get(`http://localhost:3001/emit_kb?n=${n}`);
+  // TODO: don't pause once https://github.com/aeternity/aeternity/issues/3871 has been fixed.
+  await pause(2000);
   await aeSdk.awaitHeight(height + n);
 };
 
